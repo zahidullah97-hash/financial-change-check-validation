@@ -98,6 +98,7 @@ small,.hint{color:var(--muted)}.buttons{display:flex;justify-content:flex-end;ga
 <div class="grid">
 <div class="field"><label>How easy was this to understand?</label><select id="clarity"><option>Very easy</option><option>Easy</option><option>Neither easy nor difficult</option><option>Difficult</option><option>Very difficult</option></select></div>
 <div class="field"><label>How useful was the result?</label><select id="useful"><option>Very useful</option><option>Useful</option><option>Somewhat useful</option><option>Not useful</option></select></div>
+ <div class="field"><label>Did the prototype help you understand what decision the household needed to make?</label><select id="decisionHelp"><option>Yes, clearly</option><option>Somewhat</option><option>Not really</option><option>No</option></select></div>
 <div class="field"><label>How much would you trust this type of classification?</label><select id="trust"><option>A lot</option><option>Somewhat</option><option>A little</option><option>Not at all</option></select></div>
 <div class="field"><label>Would you use something like this after a meaningful financial change?</label><select id="reuse"><option>Definitely</option><option>Probably</option><option>Maybe</option><option>Probably not</option><option>Definitely not</option></select></div>
 </div>
@@ -126,7 +127,7 @@ function p(){const q=new URLSearchParams(location.search);return{PROLIFIC_PID:q.
 async function finish(){
  if(!difference.value.trim()||!missing.value.trim()){alert("Please answer both written feedback questions.");return}
  pages.forEach(x=>x.classList.add('hidden'));done.classList.remove('hidden');
- const data={...p(),duration_seconds:Math.round((Date.now()-started)/1000),duration:duration.value,intent:intent.value,classification:classify.value,decision:document.querySelector('input[name=decision]:checked').value,clarity:clarity.value,usefulness:useful.value,trust:trust.value,reuse:reuse.value,difference:difference.value.trim(),missing:missing.value.trim(),pay:pay.value,completed_at:new Date().toISOString(),prototype_version:"Prolific V1"};
+ const data={...p(),duration_seconds:Math.round((Date.now()-started)/1000),duration:duration.value,intent:intent.value,classification:classify.value,decision:document.querySelector('input[name=decision]:checked').value,clarity:clarity.value,usefulness:useful.value,decision_help:decisionHelp.value,trust:trust.value,reuse:reuse.value,difference:difference.value.trim(),missing:missing.value.trim(),pay:pay.value,completed_at:new Date().toISOString(),prototype_version:"Prolific V1"};
  try{
    if(!window.STUDY_CONFIG || !STUDY_CONFIG.RESPONSE_ENDPOINT) throw new Error("Response endpoint is not configured yet.");
    const r=await fetch(STUDY_CONFIG.RESPONSE_ENDPOINT,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(data)});
