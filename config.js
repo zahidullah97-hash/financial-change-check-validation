@@ -1,5 +1,5 @@
 window.STUDY_CONFIG = {
-  // IMPORTANT: Do not launch paid participants until both values below are replaced.
-  RESPONSE_ENDPOINT: "",
+  SUPABASE_URL: "https://vhnyrqczgbtkwgvxelty.supabase.co",
+  SUPABASE_PUBLISHABLE_KEY: "sb_publishable_8UpEn-fzDfH0OB7SKnSbfw_eGtUFRqE",
   PROLIFIC_COMPLETION_URL: ""
 };
