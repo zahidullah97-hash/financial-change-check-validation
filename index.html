@@ -129,11 +129,43 @@ async function finish(){
  pages.forEach(x=>x.classList.add('hidden'));done.classList.remove('hidden');
  const data={...p(),duration_seconds:Math.round((Date.now()-started)/1000),duration:duration.value,intent:intent.value,classification:classify.value,decision:document.querySelector('input[name=decision]:checked').value,clarity:clarity.value,usefulness:useful.value,decision_help:decisionHelp.value,trust:trust.value,reuse:reuse.value,difference:difference.value.trim(),missing:missing.value.trim(),pay:pay.value,completed_at:new Date().toISOString(),prototype_version:"Prolific V1"};
  try{
-   if(!window.STUDY_CONFIG || !STUDY_CONFIG.RESPONSE_ENDPOINT) throw new Error("Response endpoint is not configured yet.");
-   const r=await fetch(STUDY_CONFIG.RESPONSE_ENDPOINT,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(data)});
-   if(!r.ok) throw new Error("Response storage returned an error.");
-   status.textContent="Response saved. Returning you to Prolific…";
-   setTimeout(()=>location.href=STUDY_CONFIG.PROLIFIC_COMPLETION_URL,900);
+ if(
+  !window.STUDY_CONFIG ||
+  !STUDY_CONFIG.SUPABASE_URL ||
+  !STUDY_CONFIG.SUPABASE_PUBLISHABLE_KEY
+){
+  throw new Error("Supabase connection is not configured yet.");
+}
+
+const endpoint =
+  STUDY_CONFIG.SUPABASE_URL + "/rest/v1/study_responses";
+
+const r = await fetch(endpoint, {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+    "apikey": STUDY_CONFIG.SUPABASE_PUBLISHABLE_KEY,
+    "Prefer": "return=minimal"
+  },
+  body: JSON.stringify(data)
+});
+
+if(!r.ok){
+  const details = await r.text();
+  throw new Error("Response storage returned an error: " + details);
+}
+
+status.textContent = "Response saved successfully.";
+
+if(STUDY_CONFIG.PROLIFIC_COMPLETION_URL){
+  status.textContent += " Returning you to Prolific…";
+  setTimeout(
+    ()=>location.href=STUDY_CONFIG.PROLIFIC_COMPLETION_URL,
+    900
+  );
+}else{
+  status.textContent += " Test submission complete.";
+}
  }catch(e){
    status.innerHTML="<b>Your response was not submitted.</b><br>"+e.message+"<br><br>Please do not close this page. Contact the researcher through Prolific.";
  }
