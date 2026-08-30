@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Financial Change Check — Validation Study</title>
+<style>
+:root{--ink:#183e35;--cream:#f4f6f3;--card:#fff;--line:#d7dfda;--muted:#5c6b66;--soft:#e9efeb;--amber:#fff2cc;--orange:#f4b183;--green:#e2f0d9}
+*{box-sizing:border-box}body{margin:0;background:var(--cream);font:16px/1.45 Arial,sans-serif;color:#111}
+.wrap{max-width:900px;margin:24px auto;padding:0 18px}.hero{background:var(--ink);color:#fff;padding:24px 28px;border-radius:18px}
+.hero h1{margin:0 0 6px;font-size:34px}.hero p{margin:0}.bar{height:8px;background:#dbe6e0;border-radius:9px;margin-top:20px;overflow:hidden}.bar i{display:block;height:100%;background:white;width:0}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:26px;margin-top:20px;box-shadow:0 10px 30px #0000000b}
+.step{font-size:12px;font-weight:bold;letter-spacing:1px;color:var(--muted)}h2{margin:3px 0 12px;font-size:27px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.field label{display:block;font-weight:bold;margin-bottom:6px}input,select,textarea{width:100%;padding:12px 13px;border:1px solid #bfcac4;border-radius:10px;font:inherit;background:#fff}
+small,.hint{color:var(--muted)}.buttons{display:flex;justify-content:flex-end;gap:10px;margin-top:22px}button{border:0;border-radius:10px;padding:12px 18px;font-weight:bold;cursor:pointer}
+.primary{background:var(--ink);color:#fff}.secondary{background:var(--soft)}.hidden{display:none}.result{border-left:6px solid var(--ink);padding:18px;background:#f6faf8;border-radius:10px}
+.result h3{font-size:26px;margin:0 0 8px}.metric{padding:14px;border:1px solid var(--line);border-radius:12px}.metric b{display:block;font-size:21px;margin-top:4px}
+.option{border:1px solid var(--line);border-radius:12px;padding:14px;margin:10px 0}.option label{font-weight:bold}.notice{background:var(--amber);padding:14px;border-radius:12px}
+.footer{text-align:center;color:var(--muted);font-size:12px;padding:28px}@media(max-width:650px){.grid{grid-template-columns:1fr}.hero h1{font-size:27px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="hero"><h1>Financial Change Check</h1><p>Research prototype — see how a financial change affects an existing plan.</p><div class="bar"><i id="progress"></i></div></div>
+
+<section class="card page" data-page="0">
+<div class="step">STEP 1 OF 7</div><h2>Before you begin</h2>
+<p>You’ll work through a fictional household scenario. You will not be asked for your bank login, account numbers, or real financial balances.</p>
+<div class="notice"><b>Privacy:</b> Please do not enter personally identifying or sensitive financial information anywhere in this study.</div>
+<p><b>Scenario:</b> Alex has an established monthly plan, cash reserve, and three financial goals. A new recurring childcare cost appears. Your task is to use this prototype to understand whether the existing plan still works and choose how the household should respond.</p>
+<div class="buttons"><button class="primary next">Start</button></div>
+</section>
+
+<section class="card page hidden" data-page="1">
+<div class="step">STEP 2 OF 7</div><h2>The current plan</h2>
+<div class="grid">
+<div class="metric">Monthly take-home income<b>$7,800</b></div>
+<div class="metric">Core monthly commitments<b>$4,150</b></div>
+<div class="metric">Normal flexible spending<b>$1,450</b></div>
+<div class="metric">Available for goals + buffer<b>$2,200</b></div>
+<div class="metric">Monthly goal contributions<b>$1,900</b></div>
+<div class="metric">Unallocated monthly buffer<b>$300</b></div>
+<div class="metric">Cash reserve<b>$22,000</b></div>
+<div class="metric">Minimum reserve to protect<b>$15,000</b></div>
+</div>
+<h3>Current goals</h3>
+<div class="grid">
+<div class="metric">Retirement<b>$900/mo</b><small>Protected priority</small></div>
+<div class="metric">Home down payment<b>$700/mo</b><small>Flexible timing</small></div>
+<div class="metric">Travel fund<b>$300/mo</b><small>Lowest priority</small></div>
+</div>
+<div class="buttons"><button class="secondary back">Back</button><button class="primary next">Continue</button></div>
+</section>
+
+<section class="card page hidden" data-page="2">
+<div class="step">STEP 3 OF 7</div><h2>What changed?</h2>
+<p><b>New information:</b> childcare costs increase by <b>$525 per month</b> and are expected to continue.</p>
+<div class="grid">
+<div class="field"><label>How long will this change last?</label><select id="duration"><option>Ongoing</option><option>Temporary</option><option>One-time</option></select></div>
+<div class="field"><label>Was the change intentional?</label><select id="intent"><option>No</option><option>Yes</option><option>Not sure</option></select></div>
+<div class="field"><label>Monthly effect</label><input value="$525 less available" readonly></div>
+<div class="field"><label>Which description fits best?</label><select id="classify"><option>A continuing change to normal costs</option><option>A short-term disruption</option><option>A one-time expense</option><option>A change in priorities</option></select></div>
+</div>
+<div class="buttons"><button class="secondary back">Back</button><button class="primary next">Check the plan</button></div>
+</section>
+
+<section class="card page hidden" data-page="3">
+<div class="step">STEP 4 OF 7</div><h2>Does the current plan still work?</h2>
+<div class="result"><h3>PLAN CHANGE NEEDED</h3><p>The new ongoing cost is larger than the plan’s $300 monthly buffer. If nothing changes, the household is short by <b>$225 each month</b>.</p></div>
+<div class="grid" style="margin-top:16px">
+<div class="metric">New recurring cost<b>−$525/mo</b></div><div class="metric">Existing free buffer<b>+$300/mo</b></div><div class="metric">Remaining gap<b>−$225/mo</b></div><div class="metric">Annual structural effect<b>−$6,300/yr</b></div>
+</div>
+<h3>Why you’re seeing this</h3><p>This is flagged because the change is ongoing and the current monthly plan cannot absorb it without changing a goal, another expense, or income.</p>
+<div class="buttons"><button class="secondary back">Back</button><button class="primary next">See options</button></div>
+</section>
+
+<section class="card page hidden" data-page="4">
+<div class="step">STEP 5 OF 7</div><h2>Choose how the plan should respond</h2>
+<p>The prototype does not choose for you. Select the option you think best reflects Alex’s priorities.</p>
+<div class="option"><label><input type="radio" name="decision" value="travel" checked> Reduce travel by $225/month</label><p>Retirement and home goal remain unchanged.</p></div>
+<div class="option"><label><input type="radio" name="decision" value="home"> Reduce home contribution by $225/month</label><p>Retirement remains protected.</p></div>
+<div class="option"><label><input type="radio" name="decision" value="flex"> Reduce flexible spending by $225/month</label><p>Goal contributions remain unchanged.</p></div>
+<div class="option"><label><input type="radio" name="decision" value="custom"> Make a different adjustment</label></div>
+<div class="buttons"><button class="secondary back">Back</button><button class="primary next" onclick="buildReset()">Update the plan</button></div>
+</section>
+
+<section class="card page hidden" data-page="5">
+<div class="step">STEP 6 OF 7</div><h2>The revised baseline</h2>
+<div class="result"><h3>THE PLAN IS ALIGNED AGAIN</h3><p id="decisionText"></p></div>
+<div class="grid" style="margin-top:16px"><div class="metric">Childcare increase<b>$525/mo</b><small>Now part of normal ongoing costs</small></div><div class="metric">Unresolved monthly gap<b>$0</b></div></div>
+<h3>What happens next?</h3><p>The accepted childcare increase becomes part of the household’s new baseline. The system should <b>not keep warning about the same $525 change next month</b>.</p>
+<h3>Decision memory</h3><p id="memoryText"></p>
+<div class="buttons"><button class="secondary back">Back</button><button class="primary next">Give feedback</button></div>
+</section>
+
+<section class="card page hidden" data-page="6">
+<div class="step">STEP 7 OF 7</div><h2>Tell us what you thought</h2>
+<div class="grid">
+<div class="field"><label>How easy was this to understand?</label><select id="clarity"><option>Very easy</option><option>Easy</option><option>Neither easy nor difficult</option><option>Difficult</option><option>Very difficult</option></select></div>
+<div class="field"><label>How useful was the result?</label><select id="useful"><option>Very useful</option><option>Useful</option><option>Somewhat useful</option><option>Not useful</option></select></div>
+<div class="field"><label>How much would you trust this type of classification?</label><select id="trust"><option>A lot</option><option>Somewhat</option><option>A little</option><option>Not at all</option></select></div>
+<div class="field"><label>Would you use something like this after a meaningful financial change?</label><select id="reuse"><option>Definitely</option><option>Probably</option><option>Maybe</option><option>Probably not</option><option>Definitely not</option></select></div>
+</div>
+<div class="field" style="margin-top:16px"><label>What, if anything, did this show you that a normal budget or spending tracker would not?</label><textarea id="difference" rows="3" required></textarea></div>
+<div class="field" style="margin-top:16px"><label>What was confusing, unnecessary, or missing?</label><textarea id="missing" rows="3" required></textarea></div>
+<div class="field" style="margin-top:16px"><label>If this worked with your own financial plan, which best describes your willingness to pay?</label>
+<select id="pay"><option>I would not pay for it</option><option>I might pay a small one-time price</option><option>I might pay $10–$25 one time</option><option>I might pay $25–$50 one time</option><option>I might pay a monthly subscription if it kept my plan updated</option><option>Not sure</option></select></div>
+<div class="buttons"><button class="secondary back">Back</button><button class="primary" onclick="finish()">Finish study</button></div>
+</section>
+
+<section class="card hidden" id="done">
+<h2>Submitting your response…</h2><p id="status">Please wait.</p>
+</section>
+
+<div class="footer">Educational research prototype only. Not individualized investment, tax, legal, or financial advice.</div>
+</div>
+
+<script src="config.js"></script>
+<script>
+let page=0;const pages=[...document.querySelectorAll('.page')],started=Date.now();
+function show(n){page=n;pages.forEach((p,i)=>p.classList.toggle('hidden',i!==n));document.getElementById('progress').style.width=((n+1)/7*100)+'%';scrollTo({top:0,behavior:'smooth'})}
+document.querySelectorAll('.next').forEach(b=>b.addEventListener('click',()=>show(Math.min(6,page+1))));
+document.querySelectorAll('.back').forEach(b=>b.addEventListener('click',()=>show(Math.max(0,page-1))));
+function buildReset(){const v=document.querySelector('input[name=decision]:checked').value;const m={travel:"Alex chose to reduce travel by $225/month. Retirement and the home goal remain unchanged.",home:"Alex chose to reduce the home contribution by $225/month. Retirement remains protected.",flex:"Alex chose to reduce flexible spending by $225/month. Goal contributions remain unchanged.",custom:"Alex chose a custom adjustment. A full version would calculate the consequences before the revised baseline is accepted."};decisionText.textContent=m[v];memoryText.textContent="Recorded decision: childcare +$525/month was classified as an ongoing structural change. The existing $300 buffer absorbed part of it; the remaining $225/month was addressed by the selected adjustment. This becomes the reference point for future changes."}
+function p(){const q=new URLSearchParams(location.search);return{PROLIFIC_PID:q.get('PROLIFIC_PID')||'',STUDY_ID:q.get('STUDY_ID')||'',SESSION_ID:q.get('SESSION_ID')||''}}
+async function finish(){
+ if(!difference.value.trim()||!missing.value.trim()){alert("Please answer both written feedback questions.");return}
+ pages.forEach(x=>x.classList.add('hidden'));done.classList.remove('hidden');
+ const data={...p(),duration_seconds:Math.round((Date.now()-started)/1000),duration:duration.value,intent:intent.value,classification:classify.value,decision:document.querySelector('input[name=decision]:checked').value,clarity:clarity.value,usefulness:useful.value,trust:trust.value,reuse:reuse.value,difference:difference.value.trim(),missing:missing.value.trim(),pay:pay.value,completed_at:new Date().toISOString(),prototype_version:"Prolific V1"};
+ try{
+   if(!window.STUDY_CONFIG || !STUDY_CONFIG.RESPONSE_ENDPOINT) throw new Error("Response endpoint is not configured yet.");
+   const r=await fetch(STUDY_CONFIG.RESPONSE_ENDPOINT,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(data)});
+   if(!r.ok) throw new Error("Response storage returned an error.");
+   status.textContent="Response saved. Returning you to Prolific…";
+   setTimeout(()=>location.href=STUDY_CONFIG.PROLIFIC_COMPLETION_URL,900);
+ }catch(e){
+   status.innerHTML="<b>Your response was not submitted.</b><br>"+e.message+"<br><br>Please do not close this page. Contact the researcher through Prolific.";
+ }
+}
+show(0);
+</script>
+</body>
+</html>
