@@ -123,7 +123,7 @@ function show(n){page=n;pages.forEach((p,i)=>p.classList.toggle('hidden',i!==n))
 document.querySelectorAll('.next').forEach(b=>b.addEventListener('click',()=>show(Math.min(6,page+1))));
 document.querySelectorAll('.back').forEach(b=>b.addEventListener('click',()=>show(Math.max(0,page-1))));
 function buildReset(){const v=document.querySelector('input[name=decision]:checked').value;const m={travel:"Alex chose to reduce travel by $225/month. Retirement and the home goal remain unchanged.",home:"Alex chose to reduce the home contribution by $225/month. Retirement remains protected.",flex:"Alex chose to reduce flexible spending by $225/month. Goal contributions remain unchanged.",custom:"Alex chose a custom adjustment. A full version would calculate the consequences before the revised baseline is accepted."};decisionText.textContent=m[v];memoryText.textContent="Recorded decision: childcare +$525/month was classified as an ongoing structural change. The existing $300 buffer absorbed part of it; the remaining $225/month was addressed by the selected adjustment. This becomes the reference point for future changes."}
-function p(){const q=new URLSearchParams(location.search);return{PROLIFIC_PID:q.get('PROLIFIC_PID')||'',STUDY_ID:q.get('STUDY_ID')||'',SESSION_ID:q.get('SESSION_ID')||''}}
+function p(){const q=new URLSearchParams(location.search);return{prolific_pid:q.get('PROLIFIC_PID')||'',study_id:q.get('STUDY_ID')||'',session_id:q.get('SESSION_ID')||''}}
 async function finish(){
  if(!difference.value.trim()||!missing.value.trim()){alert("Please answer both written feedback questions.");return}
  pages.forEach(x=>x.classList.add('hidden'));done.classList.remove('hidden');
