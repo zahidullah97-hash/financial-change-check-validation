@@ -155,19 +155,19 @@ if(!r.ok){
   throw new Error("Response storage returned an error: " + details);
 }
 
-status.textContent = "Response saved successfully.";
+document.getElementById("status").textContent = "Response saved successfully.";
 
 if(STUDY_CONFIG.PROLIFIC_COMPLETION_URL){
-  status.textContent += " Returning you to Prolific…";
+ document.getElementById("status").textContent += " Returning you to Prolific…";
   setTimeout(
     ()=>location.href=STUDY_CONFIG.PROLIFIC_COMPLETION_URL,
     900
   );
 }else{
-  status.textContent += " Test submission complete.";
+ document.getElementById("status").textContent += " Test submission complete.";
 }
  }catch(e){
-   status.innerHTML="<b>Your response was not submitted.</b><br>"+e.message+"<br><br>Please do not close this page. Contact the researcher through Prolific.";
+ document.getElementById("status").innerHTML="<b>Your response was not submitted.</b><br>"+e.message+"<br><br>Please do not close this page. Contact the researcher through Prolific.";
  }
 }
 show(0);
